@@ -6,18 +6,19 @@ import * as TasksActions from '../actions/tasks';
 
 class TasksApp extends Component {
   static propTypes = {
-    tasks: PropTypes.object.isRequired
+    tasks: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   render() {
     const { tasks, dispatch } = this.props;
-    let boundActionCreators = bindActionCreators(TasksActions, dispatch);
+    const boundActionCreators = bindActionCreators(TasksActions, dispatch);
 
     return (
       <div>
         <MainSection tasks={tasks} {...boundActionCreators} />
       </div>
-    )
+    );
   }
 }
 

@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MainSection from '../components/MainSection';
 import * as AuthActions from '../actions/auth';
 
 class LoginPage extends Component {
   static propTypes = {
-    isLoginFetching: React.PropTypes.bool.isRequired,
-    loginAsync: React.PropTypes.func.isRequired
+    isLoginFetching: PropTypes.bool.isRequired,
+    loginAsync: PropTypes.func.isRequired
   };
 
   state = {
@@ -24,7 +23,7 @@ class LoginPage extends Component {
   linkState(prop) {
     return {
       value: this.state[prop],
-      requestChange: (value) => this.setState({[prop]: value})
+      requestChange: (value) => this.setState({ [prop]: value })
     };
   }
 
@@ -40,17 +39,19 @@ class LoginPage extends Component {
             type="text"
             name="emailOrLogin"
             placeholder="Email or login"
-            valueLink={this.linkState('emailOrLogin')}/>
+            valueLink={this.linkState('emailOrLogin')}
+          />
           <input
             className="loginData"
             type="password"
             name="password"
             placeholder="Password"
-            valueLink={this.linkState('password')}/>
+            valueLink={this.linkState('password')}
+          />
           <button disabled={isLoginFetching}>Login</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

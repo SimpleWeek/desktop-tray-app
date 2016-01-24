@@ -1,42 +1,41 @@
-import * as types from '../constants/ActionTypes'
-import { BACKEND_BASE_URL } from '../config'
+import * as types from '../constants/ActionTypes';
+import { BACKEND_BASE_URL } from '../config';
 
 export function addTask(text) {
-  return { type: types.ADD_TASK, text }
+  return { type: types.ADD_TASK, text };
 }
 
 export function deleteTask(id) {
-  return { type: types.DELETE_TASK, id }
+  return { type: types.DELETE_TASK, id };
 }
 
 export function editTask(id, text) {
-  return { type: types.EDIT_TASK, id, text }
+  return { type: types.EDIT_TASK, id, text };
 }
 
 function changeStatus(id) {
-  return { type: types.CHANGE_TASK_STATUS, id }
+  return { type: types.CHANGE_TASK_STATUS, id };
 }
-
 
 export function toggleTaskStasus(id) {
   return (dispatch, getState) => {
     dispatch(changeStatus(id));
-    let task = getState().tasks.items.find(loopTask => loopTask.id === id);
+    const task = getState().tasks.items.find(loopTask => loopTask.id === id);
 
     return dispatch(updateTask(task));
-  }
+  };
 }
 
 export function invalidateTasks() {
   return {
     type: types.INVALIDATE_TASKS
-  }
+  };
 }
 
 function requestTasks() {
   return {
     type: types.REQUEST_TASKS
-  }
+  };
 }
 
 function receiveTasks(json) {
@@ -44,7 +43,7 @@ function receiveTasks(json) {
     type: types.RECEIVE_TASKS,
     items: json,
     fetchedAt: Date.now()
-  }
+  };
 }
 
 function fetchTasks() {
@@ -56,8 +55,8 @@ function fetchTasks() {
 
     return fetch(`${BACKEND_BASE_URL}/api/todos.json?day=today&access_token=${token}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveTasks(json)))
-  }
+      .then(json => dispatch(receiveTasks(json)));
+  };
 }
 
 function shouldFetchTasks(state) {
@@ -67,9 +66,9 @@ function shouldFetchTasks(state) {
     return true;
   } else if (state.isFetching) {
     return false;
-  } else {
-    return posts.didInvalidate;
   }
+
+  return state.didInvalidate;
 }
 
 export function fetchTasksIfNeeded() {
@@ -77,7 +76,7 @@ export function fetchTasksIfNeeded() {
     if (shouldFetchTasks(getState())) {
       return dispatch(fetchTasks());
     }
-  }
+  };
 }
 
 export function updateTask(task) {
@@ -86,13 +85,8 @@ export function updateTask(task) {
 
     return fetch(BACKEND_BASE_URL + '/api/todos/' + task.id + '?access_token=' + token, {
       method: 'put',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(task)
-    }).then(response => {
-      console.log('response=', response);
-      return response.json();
-    }).then(jsonResponse => {
-      console.log('json response=', jsonResponse);
     });
-  }
+  };
 }

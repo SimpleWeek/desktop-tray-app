@@ -1,10 +1,10 @@
-import * as types from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes';
 
 const initialState = {
   fetchedAt: undefined,
   isFetching: false,
   didInvalidate: false,
-  items: [{id: 1, text: 'test task from reducer', status: 1}]
+  items: []
 };
 
 export default function tasks(state = initialState, action) {
@@ -69,6 +69,6 @@ export default function tasks(state = initialState, action) {
       });
 
     default:
-      return state
+      return state;
   }
 }

@@ -1,18 +1,18 @@
 import * as types from '../constants/ActionTypes';
-import { routeActions } from 'redux-simple-router'
-import { OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET, BACKEND_BASE_URL } from '../config'
+import { routeActions } from 'redux-simple-router';
+import { OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET, BACKEND_BASE_URL } from '../config';
 
 function loginRequest() {
   return {
     type: types.LOGIN_REQUEST
-  }
+  };
 }
 
 function loginSuccess(authData) {
   return {
     type: types.LOGIN_SUCCESS,
     token: authData.access_token
-  }
+  };
 }
 
 function loginSuccessRedirect(json) {
@@ -20,7 +20,7 @@ function loginSuccessRedirect(json) {
     dispatch(loginSuccess(json));
 
     return dispatch(routeActions.push('/tasks'));
-  }
+  };
 }
 
 export function loginAsync(emailOrLogin, password) {
@@ -31,6 +31,6 @@ export function loginAsync(emailOrLogin, password) {
 
     return fetch(url)
       .then(response => response.json())
-      .then(json => dispatch(loginSuccessRedirect(json)))
-  }
+      .then(json => dispatch(loginSuccessRedirect(json)));
+  };
 }

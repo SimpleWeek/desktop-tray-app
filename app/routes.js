@@ -14,7 +14,7 @@ function requireAuth(nextState, replaceState) {
   if (!isLoggedIn) {
     replaceState({
       nextPathname: nextState.location.pathname
-    }, '/login')
+    }, '/login');
   }
 }
 

@@ -41,9 +41,10 @@ class MainSection extends Component {
 
     return (
       <li key={task.id}
-          onClick={() => toggleTaskStasus(task.id)}
-          className={classNames}>
-        <div dangerouslySetInnerHTML={{__html: text}} />
+        onClick={() => toggleTaskStasus(task.id)}
+        className={classNames}
+      >
+        <div dangerouslySetInnerHTML={{ __html: text }}/>
       </li>
     );
   }
@@ -58,8 +59,9 @@ class MainSection extends Component {
           </Link>
         </div>
         {!tasks.isFetching &&
-        <a href='#'
-           onClick={this.handleRefreshClick.bind(this)}>
+        <a href="#"
+          onClick={this.handleRefreshClick.bind(this)}
+        >
           Refresh
         </a>
         }
