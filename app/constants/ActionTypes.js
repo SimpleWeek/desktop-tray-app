@@ -2,8 +2,11 @@ export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const CHANGE_TASK_STATUS = 'CHANGE_TASK_STATUS';
+
 export const REQUEST_TASKS = 'REQUEST_TASKS';
-export const RECEIVE_TASKS = 'RECEIVE_TASKS';
+export const REQUEST_TASKS_SUCCESS = 'REQUEST_TASKS_SUCCESS';
+export const REQUEST_TASKS_FAILED = 'REQUEST_TASKS_FAILED';
+
 export const INVALIDATE_TASKS = 'INVALIDATE_TASKS';
 export const LOGIN = 'LOGIN';
 

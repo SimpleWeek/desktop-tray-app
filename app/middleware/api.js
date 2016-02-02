@@ -13,7 +13,7 @@ const api = store => next => action => {
     next({ type: REQUEST });
 
     doApiCall(token && token).then((responseData) => {
-      next({ type: SUCCESS, payload: responseData });
+      next({ type: SUCCESS, payload: responseData, receivedAt: Date.now() });
     }).catch((error) => {
       next({ type: FAILED, payload: error });
 

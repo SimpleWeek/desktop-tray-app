@@ -1,20 +1,34 @@
-import * as types from '../constants/ActionTypes';
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  EDIT_TASK,
+  CHANGE_TASK_STATUS,
+  INVALIDATE_TASKS,
+  REQUEST_TASKS,
+  REQUEST_TASKS_SUCCESS,
+  REQUEST_TASKS_FAILED,
+  UPDATE_TASK_REQUEST,
+  UPDATE_TASK_SUCCESS,
+  UPDATE_TASK_FAILED,
+  CALL_API
+} from '../constants/ActionTypes';
 import { BACKEND_BASE_URL } from '../config';
+import { doPut, doGet } from '../utils/apiUtils';
 
 export function addTask(text) {
-  return { type: types.ADD_TASK, text };
+  return { type: ADD_TASK, text };
 }
 
 export function deleteTask(id) {
-  return { type: types.DELETE_TASK, id };
+  return { type: DELETE_TASK, id };
 }
 
 export function editTask(id, text) {
-  return { type: types.EDIT_TASK, id, text };
+  return { type: EDIT_TASK, id, text };
 }
 
 function changeStatus(id) {
-  return { type: types.CHANGE_TASK_STATUS, id };
+  return { type: CHANGE_TASK_STATUS, id };
 }
 
 export function toggleTaskStasus(id) {
@@ -28,35 +42,18 @@ export function toggleTaskStasus(id) {
 
 export function invalidateTasks() {
   return {
-    type: types.INVALIDATE_TASKS
-  };
-}
-
-function requestTasks() {
-  return {
-    type: types.REQUEST_TASKS
-  };
-}
-
-function receiveTasks(json) {
-  return {
-    type: types.RECEIVE_TASKS,
-    items: json,
-    fetchedAt: Date.now()
+    type: INVALIDATE_TASKS
   };
 }
 
 function fetchTasks() {
-  return (dispatch, getState) => {
-    const state = getState();
-    const token = state.auth.token;
-
-    dispatch(requestTasks());
-
-    return fetch(`${BACKEND_BASE_URL}/api/todos.json?day=today&access_token=${token}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveTasks(json)));
-  };
+  return {
+    type: CALL_API,
+    statuses: [REQUEST_TASKS, REQUEST_TASKS_SUCCESS, REQUEST_TASKS_FAILED],
+    doApiCall: (accessToken) => {
+      return doGet('/api/todos', { day: 'today' }, accessToken)
+    }
+  }
 }
 
 function shouldFetchTasks(state) {
@@ -81,14 +78,11 @@ export function fetchTasksIfNeeded() {
 
 export function updateTask(task) {
   return {
-    type: types.CALL_API,
-    statuses: [types.UPDATE_TASK_REQUEST, types.UPDATE_TASK_SUCCESS, types.UPDATE_TASK_FAILED],
-    doApiCall: (token) => {
-      return fetch(BACKEND_BASE_URL + '/api/todos/' + task.id + '?access_token=' + token, {
-        method: 'put',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(task)
-      });
+    type: CALL_API,
+    statuses: [UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILED],
+    doApiCall: (accessToken) => {
+      var url = `/api/todos/${ task.id }`;
+      return doPut(url, task, accessToken);
     }
   }
 }

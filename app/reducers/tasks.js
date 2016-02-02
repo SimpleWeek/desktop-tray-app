@@ -55,10 +55,10 @@ export default function tasks(state = initialState, action) {
         didInvalidate: false
       });
 
-    case types.RECEIVE_TASKS:
+    case types.REQUEST_TASKS_SUCCESS:
       return Object.assign({}, state, {
-        items: action.items,
-        fetchedAt: action.fetchedAt,
+        items: action.payload,
+        fetchedAt: action.receivedAt,
         isFetching: false,
         didInvalidate: false
       });
