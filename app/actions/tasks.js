@@ -80,13 +80,15 @@ export function fetchTasksIfNeeded() {
 }
 
 export function updateTask(task) {
-  return (dispatch, getState) => {
-    const token = getState().auth.token;
-
-    return fetch(BACKEND_BASE_URL + '/api/todos/' + task.id + '?access_token=' + token, {
-      method: 'put',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(task)
-    });
-  };
+  return {
+    type: types.CALL_API,
+    statuses: [types.UPDATE_TASK_REQUEST, types.UPDATE_TASK_SUCCESS, types.UPDATE_TASK_FAILED],
+    doApiCall: (token) => {
+      return fetch(BACKEND_BASE_URL + '/api/todos/' + task.id + '?access_token=' + token, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
+      });
+    }
+  }
 }
