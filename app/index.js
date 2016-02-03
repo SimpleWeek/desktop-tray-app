@@ -2,11 +2,36 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
-import routes from './routes';
 import configureStore from './store/configureStore';
+import { Route, IndexRoute } from 'react-router';
+import App from './containers/App';
+import HomePage from './containers/HomePage';
+import CounterPage from './containers/CounterPage';
+import TasksPage from './containers/TasksPage';
+import LoginPage from './containers/LoginPage';
 import './app.css';
 
-export const store = configureStore();
+const store = configureStore();
+
+function requireAuth(nextState, replaceState) {
+  const state = store.getState();
+  const isLoggedIn = Boolean(state.auth.token);
+
+  if (!isLoggedIn) {
+    replaceState({
+      nextPathname: nextState.location.pathname
+    }, '/login');
+  }
+}
+
+const routes = (
+  <Route path="/" component={App}>
+    <IndexRoute component={HomePage} />
+    <Route path="/login" component={LoginPage} />
+    <Route path="/counter" component={CounterPage} />
+    <Route path="/tasks" component={TasksPage} onEnter={requireAuth} />
+  </Route>
+);
 
 render(
   <Provider store={store}>
