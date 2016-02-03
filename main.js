@@ -11,7 +11,7 @@ const shell = electron.shell;
 const path = require('path');
 const Tray = require('tray');
 const iconIdle = path.join(__dirname, 'app/images', 'tray-idle.png');
-const iconActive = path.join(__dirname, 'app/images', 'tray-active.png');
+// const iconActive = path.join(__dirname, 'app/images', 'tray-active.png');
 
 
 let menu;
@@ -33,9 +33,9 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   var appIcon = new Tray(iconIdle);
-  appIcon.on('click', function (e, bounds) {
-    //if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey) return hideWindow();
-    //if (appIcon.window && appIcon.window.isVisible()) return hideWindow();
+  appIcon.on('click', function (/* e, bounds */) {
+    // if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey) return hideWindow();
+    // if (appIcon.window && appIcon.window.isVisible()) return hideWindow();
 
   });
 

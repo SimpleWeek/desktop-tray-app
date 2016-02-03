@@ -12,7 +12,6 @@ import {
   UPDATE_TASK_FAILED,
   CALL_API
 } from '../constants/ActionTypes';
-import { BACKEND_BASE_URL } from '../config';
 import { doPut, doGet } from '../utils/apiUtils';
 
 export function addTask(text) {
@@ -51,9 +50,9 @@ function fetchTasks() {
     type: CALL_API,
     statuses: [REQUEST_TASKS, REQUEST_TASKS_SUCCESS, REQUEST_TASKS_FAILED],
     doApiCall: (accessToken) => {
-      return doGet('/api/todos', { day: 'today' }, accessToken)
+      return doGet('/api/todos', { day: 'today' }, accessToken);
     }
-  }
+  };
 }
 
 function shouldFetchTasks(state) {
@@ -84,5 +83,11 @@ export function updateTask(task) {
       var url = `/api/todos/${ task.id }`;
       return doPut(url, task, accessToken);
     }
-  }
+  };
 }
+
+
+// TODO
+// 2. move tests from Counter to tasks
+// 1. get rid of Counter
+// 3. linter

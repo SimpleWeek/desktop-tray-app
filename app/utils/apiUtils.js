@@ -27,12 +27,12 @@ function parseResponse(response) {
 }
 
 function buildHeaders(contentType = null, accessToken = null) {
-  const headers = { 'Accept': 'application/json' };
+  const headers = { Accept: 'application/json' };
   if (contentType) {
     headers['Content-Type'] = contentType;
   }
   if (accessToken) {
-    headers['Authorization'] = `Bearer ${ accessToken }`;
+    headers.Authorization = `Bearer ${ accessToken }`;
   }
 
   return headers;
