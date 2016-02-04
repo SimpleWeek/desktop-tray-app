@@ -26,7 +26,7 @@ export function editTask(id, text) {
   return { type: EDIT_TASK, id, text };
 }
 
-function changeStatus(id) {
+export function changeStatus(id) {
   return { type: CHANGE_TASK_STATUS, id };
 }
 
@@ -55,7 +55,7 @@ function fetchTasks() {
   };
 }
 
-function shouldFetchTasks(state) {
+export function shouldFetchTasks(state) {
   const fetchedAt = state.fetchedAt;
 
   if (!fetchedAt) {
@@ -85,9 +85,3 @@ export function updateTask(task) {
     }
   };
 }
-
-
-// TODO
-// 2. move tests from Counter to tasks
-// 1. get rid of Counter
-// 3. linter
