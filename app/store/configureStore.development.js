@@ -6,12 +6,15 @@ import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 import createHashHistory from 'history/lib/createHashHistory';
 import { syncHistory } from 'redux-simple-router';
+import createLogger from 'redux-logger';
+
+const logger = createLogger({ collapsed: true });
 
 const history = createHashHistory();
 const reduxRouterMiddleware = syncHistory(history);
 
 const finalCreateStore = compose(
-  applyMiddleware(thunk, reduxRouterMiddleware, api),
+  applyMiddleware(thunk, reduxRouterMiddleware, api, logger),
   DevTools.instrument(),
   persistState(
     window.location.href.match(
