@@ -13,9 +13,9 @@ const reduxRouterMiddleware = syncHistory(history);
 const finalCreateStore = compose(
   applyMiddleware(thunk, reduxRouterMiddleware, api),
   devTools({
-      name: 'Electron',
-      hostname: 'localhost',
-      port: 5678
+    name: 'Electron',
+    hostname: 'localhost',
+    port: 5678
   }),
   persistState(
     window.location.href.match(
