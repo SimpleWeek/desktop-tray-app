@@ -235,6 +235,7 @@ app.on('ready', () => {
   appIcon.setToolTip('GitHub Notifications on your menu bar.');
 
   if (process.env.NODE_ENV === 'development') {
+    BrowserWindow.addDevToolsExtension('node_modules/remotedev-extension/dist');
     appIcon.window.openDevTools();
   }
 });

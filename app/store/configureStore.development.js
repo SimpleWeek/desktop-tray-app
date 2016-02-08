@@ -3,7 +3,7 @@ import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
 import api from '../middleware/api';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
+import devTools from 'remote-redux-devtools';
 import createHashHistory from 'history/lib/createHashHistory';
 import { syncHistory } from 'redux-simple-router';
 
@@ -12,7 +12,11 @@ const reduxRouterMiddleware = syncHistory(history);
 
 const finalCreateStore = compose(
   applyMiddleware(thunk, reduxRouterMiddleware, api),
-  DevTools.instrument(),
+  devTools({
+      name: 'Electron',
+      hostname: 'localhost',
+      port: 5678
+  }),
   persistState(
     window.location.href.match(
       /[?&]debug_session=([^&]+)\b/

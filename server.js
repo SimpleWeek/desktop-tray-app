@@ -1,6 +1,11 @@
 /* eslint strict: 0, no-console: 0 */
 'use strict';
 
+require('remotedev-extension')({
+  port: 5678,
+  runserver: true
+});
+
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');

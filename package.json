@@ -123,6 +123,8 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-logger": "^2.3.1",
+    "remote-redux-devtools": "^0.1.2",
+    "remotedev-extension": "0.0.6",
     "selenium-webdriver": "^2.48.2",
     "sinon": "^1.17.2",
     "style-loader": "^0.13.0",
