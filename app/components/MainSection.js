@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import cx from 'classnames';
-import styles from './MainSection.module.css';
+import Header from './Header';
+import Footer from './Footer';
 
 class MainSection extends Component {
   static propTypes = {
@@ -11,6 +11,7 @@ class MainSection extends Component {
     toggleTaskStasus: PropTypes.func.isRequired,
     invalidateTasks: PropTypes.func.isRequired,
     fetchTasksIfNeeded: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
     tasks: PropTypes.object.isRequired
   };
 
@@ -29,8 +30,12 @@ class MainSection extends Component {
 
   renderTask(task) {
     const { toggleTaskStasus } = this.props;
-    const classNames = cx({
-      [styles.completed]: task.status === 2
+    const liClassNames = cx('todo-view', 'draggable', {
+      recurring: task.recurring
+    });
+    const pClassNames = cx('todo-text', {
+      through: task.status === 2,
+      'repeat_week': task.recurring
     });
 
     let text = task.transformedText;
@@ -42,9 +47,11 @@ class MainSection extends Component {
     return (
       <li key={task.id}
         onClick={() => toggleTaskStasus(task.id)}
-        className={classNames}
+        className={liClassNames}
       >
-        <div dangerouslySetInnerHTML={{ __html: text }}/>
+        <div className="text-wrap long">
+          <p className={pClassNames} dangerouslySetInnerHTML={{ __html: text }}/>
+        </div>
       </li>
     );
   }
@@ -53,22 +60,25 @@ class MainSection extends Component {
     const { tasks } = this.props;
     return (
       <div>
-        <div>
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
+        <Header isFetching={tasks.isFetching}
+          onLogout={this.props.logout}
+          onRefreshClick={(e) => this.handleRefreshClick(e)}
+        />
+        <div className="content-calendar">
+          <div className="top-wrap">
+            <div id="calendar" className="calendar-scroll-wrap clear-fix">
+              <section className="current">
+                <div className="list-todo">
+                  <ul>
+                    {tasks.items.map(this.renderTask.bind(this))}
+                  </ul>
+                </div>
+                <div className="rules"></div>
+              </section>
+            </div>
+          </div>
         </div>
-        {!tasks.isFetching &&
-        <a href="#"
-          onClick={this.handleRefreshClick.bind(this)}
-        >
-          Refresh
-        </a>
-        }
-        {tasks.isFetching &&
-        <h2>Loading...</h2>
-        }
-        {tasks.items.map(this.renderTask.bind(this))}
+        <Footer />
       </div>
     );
   }
