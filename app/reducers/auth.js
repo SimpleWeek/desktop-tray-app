@@ -11,7 +11,7 @@ export default function auth(state = defaultAuth, action) {
     case types.LOGIN_FAILED:
       return defaultAuth;
     case types.LOGOUT_REQUEST:
-      return { ...state, isLogoutFetching: true };
+      return { ...state, token: null };
     case types.LOGOUT_SUCCESS:
       return defaultAuth;
     case types.LOGOUT_FAILED:

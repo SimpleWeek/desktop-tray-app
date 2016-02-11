@@ -5,11 +5,17 @@ const path = require('path');
 
 module.exports = {
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['babel-loader'],
-      exclude: /node_modules/
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.png$/,
+        loader: 'url-loader',
+        query: { mimetype: 'image/png' }
+      }]
   },
   output: {
     path: path.join(__dirname, 'dist'),

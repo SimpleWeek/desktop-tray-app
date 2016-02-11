@@ -31,24 +31,29 @@ class LoginPage extends Component {
     const { isLoginFetching } = this.props;
 
     return (
-      <div>
-        {isLoginFetching && 'Logging in...'}
-        <form className="loginForm" onSubmit={(evt) => this.handleSubmit(evt)}>
-          <input
-            className="loginData"
-            type="text"
-            name="emailOrLogin"
-            placeholder="Email or login"
-            valueLink={this.linkState('emailOrLogin')}
-          />
-          <input
-            className="loginData"
-            type="password"
-            name="password"
-            placeholder="Password"
-            valueLink={this.linkState('password')}
-          />
-          <button disabled={isLoginFetching}>Login</button>
+      <div className="acc-menu open">
+        <form className="fos_user_profile_edit" onSubmit={(evt) => this.handleSubmit(evt)}>
+          <div className="form-row">
+            <div className="username">
+              <input
+                className="username"
+                type="text"
+                name="emailOrLogin"
+                placeholder="Email or login"
+                valueLink={this.linkState('emailOrLogin')}
+              />
+            </div>
+            <div className="email">
+              <input
+                className="email"
+                type="password"
+                name="password"
+                placeholder="Password"
+                valueLink={this.linkState('password')}
+              />
+            </div>
+          </div>
+          <button className="btn-save" disabled={isLoginFetching}>Login{isLoginFetching && '...'}</button>
         </form>
       </div>
     );

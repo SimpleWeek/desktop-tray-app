@@ -23,6 +23,14 @@ function loginSuccessRedirect(json) {
   };
 }
 
+export function logout() {
+  return dispatch => {
+    dispatch({ type: types.LOGOUT_REQUEST });
+
+    return dispatch(routeActions.push('/login'));
+  };
+}
+
 export function loginAsync(emailOrLogin, password) {
   return dispatch => {
     dispatch(loginRequest());

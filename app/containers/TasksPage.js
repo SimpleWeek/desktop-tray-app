@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MainSection from '../components/MainSection';
 import * as TasksActions from '../actions/tasks';
+import * as AuthActions from '../actions/auth';
 
 class TasksApp extends Component {
   static propTypes = {
@@ -12,7 +13,10 @@ class TasksApp extends Component {
 
   render() {
     const { tasks, dispatch } = this.props;
-    const boundActionCreators = bindActionCreators(TasksActions, dispatch);
+    const boundActionCreators = bindActionCreators({
+      ...AuthActions,
+      ...TasksActions
+    }, dispatch);
 
     return (
       <div>
