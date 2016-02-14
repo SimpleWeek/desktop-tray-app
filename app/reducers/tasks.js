@@ -68,6 +68,12 @@ export default function tasks(state = initialState, action) {
         didInvalidate: true
       });
 
+    case types.LOGOUT_REQUEST:
+      return Object.assign({}, state, {
+        items: [],
+        fetchedAt: undefined
+      });
+
     default:
       return state;
   }

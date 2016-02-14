@@ -167,6 +167,7 @@ h2 {font-size: 30px; line-height: 30px; font-family: 'Open Sans', sans-serif; fo
   margin-top: 4px;
   height: auto;
 }
+.acc-menu .form-row input { font-weight: 300; }
 .acc-menu .form-row input::-moz-placeholder { color: #c6ebd8; }
 .acc-menu .form-row input::-webkit-input-placeholder { color: #c6ebd8; }
 .acc-menu p {font-size: 14px; color: #bbe4cf;}
