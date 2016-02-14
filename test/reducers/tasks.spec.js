@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import tasks from '../../app/reducers/tasks';
-import { DELETE_TASK, CHANGE_TASK_STATUS, REQUEST_TASKS, REQUEST_TASKS_SUCCESS, INVALIDATE_TASKS } from '../../app/constants/ActionTypes';
+import { DELETE_TASK, CHANGE_TASK_STATUS, REQUEST_TASKS, REQUEST_TASKS_SUCCESS, INVALIDATE_TASKS, LOGOUT_REQUEST } from '../../app/constants/ActionTypes';
 
 describe('reducers', () => {
   describe('tasks', () => {
@@ -103,6 +103,22 @@ describe('reducers', () => {
         isFetching: false,
         didInvalidate: false,
         items: [{ id: 2, status: 2 }]
+      });
+    });
+
+    it('should handle LOGOUT_REQUEST', () => {
+      const state = {
+        fetchedAt: 123,
+        isFetching: false,
+        didInvalidate: false,
+        items: [{ id: 1, status: 1 }]
+      };
+
+      expect(tasks(state, { type: LOGOUT_REQUEST })).to.eql({
+        fetchedAt: undefined,
+        isFetching: false,
+        didInvalidate: false,
+        items: []
       });
     });
   });
