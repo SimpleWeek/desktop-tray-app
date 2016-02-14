@@ -49,8 +49,11 @@ class MainSection extends Component {
         onClick={() => toggleTaskStasus(task.id)}
         className={liClassNames}
       >
-        <div className="text-wrap long">
-          <p className={pClassNames} dangerouslySetInnerHTML={{ __html: text }}/>
+        <div className="todo-wrapper">
+          <div className="text-wrap long">
+            <p className={pClassNames} dangerouslySetInnerHTML={{ __html: text }}/>
+          </div>
+          {task.description && <span className="description-dott">·</span>}
         </div>
       </li>
     );
