@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import styles from './Home.module.css';
 
 
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <div className={styles.container}>
-          <h2>Home</h2>
-          <Link to="/tasks">Tasks</Link><br/>
-          <Link to="/login">Login</Link>
+      <div className="padding main-page content-bg scroll-content ionic-scroll scroll-content-false  has-header">
+        <div className="logo"></div>
+        <div className="slogan">
+          <p>Personal task manager</p>
         </div>
+        <Link className="button button-block button-stable" to="/tasks">Sign In</Link>
+        <Link className="button button-block button-stable" to="/login">Sign Up</Link>
       </div>
     );
   }

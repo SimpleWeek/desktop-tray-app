@@ -88,6 +88,85 @@ body {color: #ffffff; font: 16px/18px Arial, Tahoma, Verdana, sans-serif; font-w
 */
 h1 {}
 h2 {font-size: 30px; line-height: 30px; font-family: 'Open Sans', sans-serif; font-weight: 300; text-align: center;}
+
+/* public page */
+.content-bg {
+  background-color: #27925C;
+  height: 407px;
+}
+.padding {
+  padding: 10px;
+}
+.scroll-content {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  margin-top: -1px;
+  padding-top: 1px;
+  margin-bottom: -1px;
+  width: auto;
+  font-family: 'Open Sans', sans-serif;
+}
+.main-page .logo {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  background-image: url("images/logo_sign_white.png");
+  height: 35%;
+  margin: 20px auto 25px auto;
+  position: relative;
+  z-index: 2;
+}
+.main-page .slogan {
+  text-align: center;
+  color: #fff;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 40px auto;
+  width: 88%;
+  /*letter-spacing: 0.25px;*/
+  font-size: 16px;
+  position: relative;
+  z-index: 2;
+}
+.button {
+  border-color: #b2b2b2;
+  background-color: #f8f8f8;
+  color: #444;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 12px;
+  min-width: 52px;
+  min-height: 47px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  vertical-align: top;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 46px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.button-block {
+  display: block;
+  clear: both;
+}
+.button.button-block, .button.button-full {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.content-bg .button {
+  border-color: #fff;
+  background-color: #27925C;
+  color: #fff;
+}
+
 /*
                     bnt
 */
