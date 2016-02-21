@@ -122,7 +122,7 @@ export function fetchTasksIfNeeded() {
 }
 
 export function updateTask(task) {
-  return (dispatch, getState) =>  {
+  return (dispatch, getState) => {
     dispatch({
       type: CALL_API,
       statuses: [UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILED],
@@ -135,5 +135,5 @@ export function updateTask(task) {
           });
       }
     });
-  }
+  };
 }
