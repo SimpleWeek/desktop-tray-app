@@ -13,6 +13,7 @@ import {
   UPDATE_SCHEDULE,
   CALL_API
 } from '../constants/ActionTypes';
+import { STATUS_COMPLETED } from '../constants/TaskStatuses';
 import { doPut, doGet } from '../utils/apiUtils';
 import { getTimeToSchedule } from '../utils/time';
 import moment from 'moment-timezone';
@@ -59,6 +60,9 @@ export function scheduleTasks(tasks) {
     taskScheduleMap = {};
 
     tasks.forEach(function (task) {
+      if (task.status === STATUS_COMPLETED) {
+        return;
+      }
       const time = getTimeToSchedule(task.text);
       if (time) {
         const deltaSeconds = moment(time, 'HH:mm').unix() - moment().unix();
@@ -73,11 +77,11 @@ export function scheduleTasks(tasks) {
             timeoutId,
             scheduledFor: time
           };
-
-          dispatch({ type: UPDATE_SCHEDULE, payload: taskScheduleMap });
         }
       }
     });
+
+    return dispatch({ type: UPDATE_SCHEDULE, payload: taskScheduleMap });
   };
 }
 
@@ -118,12 +122,18 @@ export function fetchTasksIfNeeded() {
 }
 
 export function updateTask(task) {
-  return {
-    type: CALL_API,
-    statuses: [UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILED],
-    doApiCall: (accessToken) => {
-      var url = `/api/todos/${ task.id }`;
-      return doPut(url, task, accessToken);
-    }
-  };
+  return (dispatch, getState) =>  {
+    dispatch({
+      type: CALL_API,
+      statuses: [UPDATE_TASK_REQUEST, UPDATE_TASK_SUCCESS, UPDATE_TASK_FAILED],
+      doApiCall: (accessToken) => {
+        var url = `/api/todos/${ task.id }`;
+        return doPut(url, task, accessToken).
+          then(response => {
+            dispatch(scheduleTasks(getState().tasks.items));
+            return response;
+          });
+      }
+    });
+  }
 }

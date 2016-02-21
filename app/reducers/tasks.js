@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import { STATUS_ACTIVE, STATUS_COMPLETED } from '../constants/TaskStatuses';
 
 const initialState = {
   fetchedAt: undefined,
@@ -45,7 +46,7 @@ export default function tasks(state = initialState, action) {
             return todo;
           }
           return Object.assign({}, todo, {
-            status: todo.status === 1 ? 2 : 1
+            status: todo.status === STATUS_ACTIVE ? STATUS_COMPLETED : STATUS_ACTIVE
           });
         })
       });
