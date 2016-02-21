@@ -4,7 +4,8 @@ const initialState = {
   fetchedAt: undefined,
   isFetching: false,
   didInvalidate: false,
-  items: []
+  items: [],
+  schedule: {}
 };
 
 export default function tasks(state = initialState, action) {
@@ -72,6 +73,11 @@ export default function tasks(state = initialState, action) {
       return Object.assign({}, state, {
         items: [],
         fetchedAt: undefined
+      });
+
+    case types.UPDATE_SCHEDULE:
+      return Object.assign({}, state, {
+        schedule: action.payload
       });
 
     default:

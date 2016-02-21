@@ -15,7 +15,12 @@ module.exports = {
         test: /\.png$/,
         loader: 'url-loader',
         query: { mimetype: 'image/png' }
-      }]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
