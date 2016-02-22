@@ -17,6 +17,7 @@ import { STATUS_COMPLETED } from '../constants/TaskStatuses';
 import { doPut, doGet } from '../utils/apiUtils';
 import { getTimeToSchedule } from '../utils/time';
 import moment from 'moment-timezone';
+import { showNotification } from '../utils/notifications';
 import _ from 'lodash';
 
 export function addTask(text) {
@@ -50,6 +51,13 @@ export function invalidateTasks() {
   };
 }
 
+function updateSchedule(taskScheduleMap) {
+  return {
+    type: UPDATE_SCHEDULE,
+    payload: taskScheduleMap
+  };
+}
+
 export function scheduleTasks(tasks) {
   return (dispatch, getState) => {
     let taskScheduleMap = getState().tasks.schedule;
@@ -68,10 +76,7 @@ export function scheduleTasks(tasks) {
         const deltaSeconds = moment(time, 'HH:mm').unix() - moment().unix();
 
         if (deltaSeconds >= 0) {
-          const timeoutId = setTimeout(() => dispatch({
-            type: 'SHOW_NOTIFICATION',
-            payload: task.transformedText
-          }), deltaSeconds * 1000);
+          const timeoutId = setTimeout(() => showNotification('Reminder', task.text), deltaSeconds * 1000);
 
           taskScheduleMap[task.id] = {
             timeoutId,
@@ -81,7 +86,7 @@ export function scheduleTasks(tasks) {
       }
     });
 
-    return dispatch({ type: UPDATE_SCHEDULE, payload: taskScheduleMap });
+    return dispatch(updateSchedule(taskScheduleMap));
   };
 }
 
