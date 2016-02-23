@@ -62,3 +62,7 @@ export function doPost(url, data, accessToken = null) {
 export function doPut(url, data, accessToken = null) {
   return sendRequest(url, 'put', JSON.stringify(data), accessToken);
 }
+
+export function doDelete(url, accessToken = null) {
+  return sendRequest(url, 'delete', null, accessToken);
+}

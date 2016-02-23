@@ -23,17 +23,15 @@ describe('reducers', () => {
 
     it('should handle DELETE_TASK', () => {
       const state = Object.assign({}, defaultState, {
-        fetchedAt: undefined,
-        isFetching: false,
-        didInvalidate: false,
         items: [{ id: 1 }, { id: 2 }]
       });
 
-      expect(tasks(state, { type: DELETE_TASK, id: 1 })).to.eql(Object.assign({}, defaultState, {
-        fetchedAt: undefined,
-        isFetching: false,
-        didInvalidate: false,
+      expect(tasks(state, { type: DELETE_TASK, payload: 1 })).to.eql(Object.assign({}, state, {
         items: [{ id: 2 }]
+      }));
+
+      expect(tasks(state, { type: DELETE_TASK, payload: 999 })).to.eql(Object.assign({}, state, {
+        items: [{ id: 1 }, { id: 2 }]
       }));
     });
 

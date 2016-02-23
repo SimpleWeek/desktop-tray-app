@@ -1,6 +1,9 @@
 import {
   ADD_TASK,
   DELETE_TASK,
+  DELETE_TASK_REQUEST,
+  DELETE_TASK_SUCCESS,
+  DELETE_TASK_FAILED,
   EDIT_TASK,
   CHANGE_TASK_STATUS,
   INVALIDATE_TASKS,
@@ -14,7 +17,7 @@ import {
   CALL_API
 } from '../constants/ActionTypes';
 import { STATUS_COMPLETED } from '../constants/TaskStatuses';
-import { doPut, doGet } from '../utils/apiUtils';
+import { doPut, doGet, doDelete } from '../utils/apiUtils';
 import { getTimeToSchedule } from '../utils/time';
 import moment from 'moment-timezone';
 import { showNotification } from '../utils/notifications';
@@ -24,8 +27,28 @@ export function addTask(text) {
   return { type: ADD_TASK, text };
 }
 
+export function deleteTaskItem(id) {
+  return {
+    type: DELETE_TASK,
+    payload: id
+  };
+}
+
 export function deleteTask(id) {
-  return { type: DELETE_TASK, id };
+  return (dispatch, getState) => {
+    dispatch(deleteTaskItem(id));
+    dispatch({
+      type: CALL_API,
+      statuses: [DELETE_TASK_REQUEST, DELETE_TASK_SUCCESS, DELETE_TASK_FAILED],
+      doApiCall: (accessToken) => {
+        return doDelete(`/api/todos/${id}`, accessToken)
+          .then((response) => {
+            dispatch(scheduleTasks(getState().tasks.items));
+            return response;
+          });
+      }
+    });
+  };
 }
 
 export function editTask(id, text) {

@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import * as actions from '../../app/actions/tasks';
-import { CHANGE_TASK_STATUS } from '../../app/constants/ActionTypes';
+import { CHANGE_TASK_STATUS, DELETE_TASK } from '../../app/constants/ActionTypes';
 
 
 describe('tasks actions', () => {
@@ -10,7 +10,11 @@ describe('tasks actions', () => {
     expect(actions.changeStatus(1)).to.deep.equal({ type: CHANGE_TASK_STATUS, id: 1 });
   });
 
-  it('toggleTaskStatus should create changeStatus actionand updateTask action', () => {
+  it('deleteTaskItem should create deleteTaskItem action', () => {
+    expect(actions.deleteTaskItem(1)).to.deep.equal({ type: DELETE_TASK, payload: 1 });
+  });
+
+  it('toggleTaskStatus should create changeStatus action and updateTask action', () => {
     const fn = actions.toggleTaskStasus(2);
 
     expect(fn).to.be.a('function');

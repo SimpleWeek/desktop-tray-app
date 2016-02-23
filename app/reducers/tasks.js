@@ -26,7 +26,7 @@ export default function tasks(state = initialState, action) {
     case types.DELETE_TASK:
       return Object.assign({}, state, {
         items: state.items.filter(todo =>
-          todo.id !== action.id
+          todo.id !== action.payload
         )
       });
 

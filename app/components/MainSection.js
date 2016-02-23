@@ -28,6 +28,14 @@ class MainSection extends Component {
     fetchTasksIfNeeded();
   }
 
+  handleDeleteClick(id, e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { deleteTask } = this.props;
+    deleteTask(id);
+  }
+
   renderTask(task) {
     const { toggleTaskStasus } = this.props;
     const liClassNames = cx('todo-view', 'draggable', {
@@ -52,6 +60,9 @@ class MainSection extends Component {
         <div className="todo-wrapper">
           <div className="text-wrap long">
             <p className={pClassNames} dangerouslySetInnerHTML={{ __html: text }}/>
+          </div>
+          <div className="btn-wrap">
+            <a className="btn delete" onClick={(e) => this.handleDeleteClick(task.id, e)} href="#"></a>
           </div>
           {task.description && <span className="description-dott">·</span>}
         </div>
